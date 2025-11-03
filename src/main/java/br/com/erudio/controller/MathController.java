@@ -1,27 +1,34 @@
 package br.com.erudio.controller;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
-@RequestMapping("/math")// Todas as operacoes comecaram com math
+@RequestMapping("/math") // Define o path base para o controlador
 public class MathController {
-
-	@RequestMapping("/sum/{numberOne}/ {numberTwo}")
-	public Double sum(@PathVariable("numberOne") String numberOne,
-			@PathVariable("numberOne") String numberTwo) 
-		throws Exception {
-		if(!isNumeric(numberOne) || isNumeric(numberTwo)) throw new IllegalArgumentException();
-		return convertToDouble( numberOne) + convertToDouble(numberTwo);
+    
+    @GetMapping("/sum/{numberOne}/{numberTwo}")
+    public Double sum(@PathVariable("numberOne") String numberOne,
+                      @PathVariable("numberTwo") String numberTwo) throws Exception {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+            throw new Exception();
+        }
+        return covertToDouble(numberOne) + covertToDouble(numberTwo);
+    }    
+    
+    public static Double covertToDouble(String strNumber) {
+		if (strNumber == null) return 0d; 
+		String number = strNumber.replaceAll(",", ".");// Moeda Americana x Brasileira
+		return Double.parseDouble(number);
 	}
 
-	private Double convertToDouble(String numberTwo) {
-		// TODO Auto-generated method stub
-		return 1D;
+	public static boolean isNumeric(String strNumber) {
+		if (strNumber == null) return false; 
+		String number = strNumber.replaceAll(",", ".");
+			return number.matches("[-+]?[0-9]*\\.?[0-9]+");
 	}
 
-	private boolean isNumeric(String numberOne) {
-		return true;
-	}
 }
+
