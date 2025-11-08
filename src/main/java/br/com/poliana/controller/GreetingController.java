@@ -1,4 +1,4 @@
-package br.com.erudio.controller;
+package br.com.poliana.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.erudio.Model.Greeting;
+import br.com.poliana.Model.Greeting;
 
 @RestController
 public class GreetingController {
