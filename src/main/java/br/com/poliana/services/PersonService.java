@@ -29,11 +29,8 @@ public class PersonService {
 	
 	
 	
-
-
-
 	public Person findById(String id) {
-		logger.info("Finding one person!");
+		logger.info("Finding all person!");
 		
 		Person person = new Person();
 		person.setId(counter.incrementAndGet());//Simula um acesso ao banco,persistencia e retorno aos dados
@@ -43,6 +40,24 @@ public class PersonService {
 		person.setGender("Male");
 		return person;
 		
+	}
+	
+	
+	public Person create(Person person) {
+		logger.info("Creating one Person!");
+		return person;
+	}
+	
+	
+	public Person update(Person person) {
+		logger.info("Updating one Person!");
+		return person;
+	}
+	
+	
+	public void  delete(String id) {
+		logger.info("Deleting one Person!");
+
 	}
 	
 	private Person mockPerson(int i) {
