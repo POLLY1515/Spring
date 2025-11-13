@@ -1,72 +1,73 @@
 package br.com.poliana.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.poliana.Model.Person;
+import br.com.poliana.exception.ResourceNotFoundException;
+import br.com.poliana.repositories.PersonRepository;
 
 @Service
 public class PersonService {
 	//Operacoes para cadastrar uma pessoa
 
 	private final AtomicLong counter = new AtomicLong(); // como ainda nao estamos trabalhando com banco ,
-
 	private Logger logger = Logger.getLogger(PersonService.class.getName());
+
+	
+	@Autowired
+	PersonRepository repository;
+	
 	
 	public List<Person> findAll() {
-		List<Person> persons = new ArrayList<Person>();
-		for(int i = 0; i < 8; i++) {
-			Person person = mockPerson(i);
-			persons.add(person);
-		}
-		return persons;
+		
+		logger.info("Finding all People!");
+		return repository.findAll();
 	}
 	
 	
 	
 	
-	public Person findById(String id) {
+	public Person findById(Long id) {
 		logger.info("Finding all person!");
 		
-		Person person = new Person();
-		person.setId(counter.incrementAndGet());//Simula um acesso ao banco,persistencia e retorno aos dados
-		person.setFirstName("Poliana");
-		person.setLasttName("Beatriz");
-		person.setAddress("Conselheiro Lafaiete - Minas Gerais - Brasil");
-		person.setGender("Male");
-		return person;
-		
+		return repository.findById(id).orElseThrow(()
+			->new  ResourceNotFoundException("No trecords found for this id!"));
 	}
 	
 	
 	public Person create(Person person) {
 		logger.info("Creating one Person!");
-		return person;
+		return repository.save(person);
 	}
 	
 	
 	public Person update(Person person) {
 		logger.info("Updating one Person!");
-		return person;
+		
+	Person entity =	repository.findById(person.getId()).orElseThrow(()
+				->new  ResourceNotFoundException("No trecords found for this id!"));
+		
+	entity.setFirstName(person.getFirstName());
+	entity.setLasttName(person.getLasttName());
+	entity.setAddress(person.getAddress());
+	entity.setGender(person.getGender());
+				
+		return repository.save(person);
 	}
 	
 	
-	public void  delete(String id) {
+	public void  delete(Long id) {
 		logger.info("Deleting one Person!");
+		//recupera a entidade
+		Person entity =	repository.findById(id).orElseThrow(()
+				->new  ResourceNotFoundException("No trecords found for this id!"));
+		repository.delete(entity);
 
 	}
 	
-	private Person mockPerson(int i) {
-		
-		Person person = new Person();
-		person.setId(counter.incrementAndGet());//Simula um acesso ao banco,persistencia e retorno aos dados
-		person.setFirstName("Firstname " + i);
-		person.setLasttName("Lastname " + i);
-		person.setAddress("Some Addres in Brasil");
-		person.setGender("Male");
-		return person;	}
 }
