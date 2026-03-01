@@ -7,14 +7,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update  # Pode ser: none | validate | update | create | create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-  # Opcional: configuração do servidor
   servlet:
     multipart:
       max-file-size: 10MB
@@ -22,3 +21,7 @@ spring:
 
 server:
   port: 8080
+
+logging:
+  level:
+    br.com.poliana: WARN
