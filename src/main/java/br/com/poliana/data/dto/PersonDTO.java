@@ -23,7 +23,7 @@ public class PersonDTO  implements Serializable{
 	@Column(name = "first_name", nullable = false, length = 80)
 	private String firstName;
 	@Column(name = "last_name", nullable = false, length = 80)
-	private String lasttName;
+	private String LastName;
 	@Column(nullable = false, length = 100)
 	private String address;
 	@Column(nullable = false, length = 6)
@@ -39,7 +39,7 @@ public class PersonDTO  implements Serializable{
 		super();
 		this.id = id;
 		this.firstName = firstName;
-		this.lasttName = lasttName;
+		this.LastName = LastName;
 		this.address = address;
 		this.gender = gender;
 	}
@@ -66,12 +66,12 @@ public class PersonDTO  implements Serializable{
 
 
 	public String getLasttName() {
-		return lasttName;
+		return LastName;
 	}
 
 
-	public void setLasttName(String lasttName) {
-		this.lasttName = lasttName;
+	public void setLastName(String LastName) {
+		this.LastName = LastName;
 	}
 
 
@@ -124,7 +124,7 @@ public class PersonDTO  implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", firstName=" + firstName + ", lasttName=" + lasttName + ", address=" + address
+		return "Person [id=" + id + ", firstName=" + firstName + ", LastName=" + LastName + ", address=" + address
 				+ ", gender=" + gender + "]";
 	}
 	
